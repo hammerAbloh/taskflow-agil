@@ -1,7 +1,9 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class Task(BaseModel):
-    id: int
+    id: Optional[int] = 0
     titulo: str
     prioridade: str
-    status: str
+    status: Optional[str] = "Pendente"
+
