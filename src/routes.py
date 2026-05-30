@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from src.models import Task
 
 router = APIRouter()
 
@@ -13,12 +14,12 @@ def listar_tarefas():
     return tarefas
 
 @router.post("/tarefas")
-def criar_tarefa(tarefa: dict):
+def criar_tarefa(tarefa: Task):
     tarefas.append(tarefa)
     return tarefa
 
 @router.put("/tarefas/{id}")
-def editar_tarefa(id: int, tarefa: dict):
+def editar_tarefa(id: int, tarefa: Task):
     tarefas[id] = tarefa
     return tarefa
 
