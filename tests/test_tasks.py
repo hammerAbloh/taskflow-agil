@@ -51,3 +51,20 @@ def test_crud_tarefas():
     response = client.get("/tarefas")
     assert response.status_code == 200
     assert response.json() == []
+
+def test_erros_tarefas_inexistentes():
+    # Testar PUT em tarefa que não existe (deve retornar 404)
+    tarefa_dados = {
+        "id": 99,
+        "titulo": "Tarefa Fantasma",
+        "prioridade": "Média",
+        "status": "A Fazer"
+    }
+    response = client.put("/tarefas/99", json=tarefa_dados)
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Tarefa não encontrada"
+
+    # Testar DELETE em tarefa que não existe (deve retornar 404)
+    response = client.delete("/tarefas/99")
+    assert response.status_code == 404
+    assert response.json()["detail"] == "Tarefa não encontrada"
